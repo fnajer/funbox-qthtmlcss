@@ -1,0 +1,23 @@
+{
+  "name": "vk-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fnajer/vk-news-columnist.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fnajer/vk-news-columnist/issues"
+  },
+  "homepage": "https://github.com/fnajer/vk-news-columnist#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
