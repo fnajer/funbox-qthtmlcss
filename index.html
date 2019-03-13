@@ -21,23 +21,21 @@
 
       async function getLikes() {
         const subsc_list_ids = await getSubscriptions();
-        
+
         const format_list = '-' + subsc_list_ids.join(',-');
-        const posts = await getPosts(config.posts_count, format_list);
+        const posts = await getPosts(posts_count, format_list);
 
         await showLikedPosts(posts);
       }
 
       async function getSubscriptions() {
         const subscriptions = await $.ajax({
-          url: 'https://api.vk.com/method/users.getSubscriptions?user_id='+config.user_id+'&access_token='+access_token+'&v=5.52',
+          url: 'https://api.vk.com/method/users.getSubscriptions?user_id='+user_id+'&access_token='+access_token+'&v=5.52',
           method: 'GET',
           dataType: 'JSONP',
-          success: data => {
-            return data['response']['groups']['items'];
-          }
+          success: data => {}
         });
-        return subscriptions;
+        return subscriptions['response']['groups']['items'];
       };
 
       async function getNewsfeed(list, next_from) {
@@ -73,16 +71,14 @@
 
       async function checkLike(itemId, ownerId) {
         const isLiked = await $.ajax({
-          url: 'https://api.vk.com/method/likes.isLiked?type=post&user_id='+config.user_id+'&item_id='+itemId+'&owner_id='+ownerId+'&access_token='+access_token+'&v=5.52',
+          url: 'https://api.vk.com/method/likes.isLiked?type=post&user_id='+user_id+'&item_id='+itemId+'&owner_id='+ownerId+'&access_token='+access_token+'&v=5.52',
           method: 'GET',
           dataType: 'JSONP',
-          success: data => {
-            return data['response']['liked'];
-          }
+          success: data => {}
         });
         await wait(600);
 
-        return isLiked;
+        return isLiked['response']['liked'];
       }
 
       async function showLikedPosts(posts) {
