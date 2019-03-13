@@ -21,6 +21,9 @@
 
       async function getLikes() {
         const subsc_list_ids = await getSubscriptions();
+        
+        const format_list = '-' + subsc_list_ids.join(',-');
+        const posts = await getPosts(config.posts_count, format_list);
 
       }
 
@@ -34,6 +37,18 @@
           }
         });
         return subscriptions;
+      };
+
+      async function getNewsfeed(list, next_from) {
+        const newsfeed = await $.ajax({
+          url: 'https://api.vk.com/method/newsfeed.get?filters=post&count=100&start_from='+next_from+'&source_ids='+list+'&access_token='+access_token+'&v=5.52',
+          method: 'GET',
+          dataType: 'JSONP',
+          success: data => {
+            return data;
+          }
+        });
+        return newsfeed;
       };
     </script>
   </body>
