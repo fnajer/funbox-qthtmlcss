@@ -25,6 +25,7 @@
         const format_list = '-' + subsc_list_ids.join(',-');
         const posts = await getPosts(config.posts_count, format_list);
 
+        await showLikedPosts(posts);
       }
 
       async function getSubscriptions() {
@@ -83,6 +84,27 @@
 
         return isLiked;
       }
+
+      async function showLikedPosts(posts) {
+        for (post in posts) {
+          const itemId = post;
+          const ownerId = posts[post];
+          let isLiked;
+
+          try {
+            isLiked = await checkLike(itemId, ownerId);
+
+          } catch(e) {
+            console.log(e);
+            isLiked = false;
+          }
+
+          if (isLiked) {
+            console.log(`vk.com/wall${ownerId}_${itemId}`);
+          }
+        }
+        console.log('Завершено');
+        }
     </script>
   </body>
 </html>
