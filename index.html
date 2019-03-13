@@ -15,8 +15,26 @@
       const user_id = '';
       const posts_count = 1; //1*100
 
-      
+      getLikes();
 
+      const wait = ms => new Promise((r, j)=>setTimeout(r, ms));
+
+      async function getLikes() {
+        const subsc_list_ids = await getSubscriptions();
+
+      }
+
+      async function getSubscriptions() {
+        const subscriptions = await $.ajax({
+          url: 'https://api.vk.com/method/users.getSubscriptions?user_id='+config.user_id+'&access_token='+access_token+'&v=5.52',
+          method: 'GET',
+          dataType: 'JSONP',
+          success: data => {
+            return data['response']['groups']['items'];
+          }
+        });
+        return subscriptions;
+      };
     </script>
   </body>
 </html>
