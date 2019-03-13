@@ -50,6 +50,25 @@
         });
         return newsfeed;
       };
+
+      async function getPosts(posts_count, format_list) {
+        let posts = {};
+        let next_from = '';
+
+        for (;posts_count > 0; posts_count--) {
+          let newsfeed = await getNewsfeed(format_list, next_from);
+          
+          next_from = newsfeed['response'].next_from;
+          console.log(next_from);
+          await newsfeed['response']['items'].forEach(oneNews => {
+            posts[oneNews.post_id] = oneNews.source_id;
+          });
+
+          await wait(600);
+          console.log(posts);
+        }
+        return posts;
+      }
     </script>
   </body>
 </html>
