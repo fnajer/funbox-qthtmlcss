@@ -69,6 +69,20 @@
         }
         return posts;
       }
+
+      async function checkLike(itemId, ownerId) {
+        const isLiked = await $.ajax({
+          url: 'https://api.vk.com/method/likes.isLiked?type=post&user_id='+config.user_id+'&item_id='+itemId+'&owner_id='+ownerId+'&access_token='+access_token+'&v=5.52',
+          method: 'GET',
+          dataType: 'JSONP',
+          success: data => {
+            return data['response']['liked'];
+          }
+        });
+        await wait(600);
+
+        return isLiked;
+      }
     </script>
   </body>
 </html>
